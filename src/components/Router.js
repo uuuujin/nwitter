@@ -4,9 +4,7 @@ import Auth from "../routes/Auth";
 import Home from "../routes/Home";
 
 /*인증 여부에 따라 달라질 부분 구현*/
-export default function AppRouter ()  {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+export default function AppRouter ({isLoggedIn})  {
     return (
         <Router>
             <Switch>
