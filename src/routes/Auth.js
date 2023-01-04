@@ -24,7 +24,7 @@ const Auth =  () => {
       try {
           let data;
           if (newAccount) {
-              //새 게정 생성
+              //새 계정 생성
               data = await authService.createUserWithEmailAndPassword(
                   email, password
               );
@@ -34,7 +34,6 @@ const Auth =  () => {
                     email, password
                 );
           }
-          console.log(data);
       } catch (error) {
           setError(error.message);
       }
@@ -90,7 +89,5 @@ const Auth =  () => {
     </div>
     );
 };
-
-
 
 export default Auth;

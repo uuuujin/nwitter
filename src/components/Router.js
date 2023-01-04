@@ -6,7 +6,7 @@ import Profile from "../routes/Profile";
 import Navigation from "./Navigation";
 
 /*인증 여부에 따라 달라질 부분 구현*/
-export default function AppRouter ({isLoggedIn})  {
+export default function AppRouter ({isLoggedIn, userObj})  {
     return (
         <Router>
             {isLoggedIn && <Navigation />}
@@ -14,7 +14,7 @@ export default function AppRouter ({isLoggedIn})  {
                 {isLoggedIn ? (
                 <>
                     <Route exact path="/">
-                        <Home/>
+                        <Home userObj={userObj}/>
                     </Route>
                     <Route exact path="/profile">
                         <Profile/>
