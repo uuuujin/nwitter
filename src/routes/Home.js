@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {collection,
-        onSnapshot,
-        addDoc,
-        query,
-        orderBy,
-        serverTimestamp,
-        getFirestore
+import {
+    collection,
+    onSnapshot,
+    addDoc,
+    query,
+    orderBy,
+    serverTimestamp,
+    getFirestore
 }
-from "firebase/firestore";
+    from "firebase/firestore";
 import {dbService} from "../fBase";
+import Nweet from "../components/Nweet";
 
 const Home = ({userObj}) => {
     const [nweet, setNweet] = useState("");
@@ -16,13 +18,13 @@ const Home = ({userObj}) => {
 
     useEffect(() => {
         const q = query(
-            collection(getFirestore(),"nweets"),
+            collection(getFirestore(), "nweets"),
             orderBy("createdAt")
         );
         onSnapshot(q, snapshot => {
             const arr = snapshot.docs.map((doc) => ({
                 ...doc.data(),
-                id : doc.id
+                id: doc.id
             }));
             setNweets(arr);
         });
@@ -32,14 +34,14 @@ const Home = ({userObj}) => {
         e.preventDefault();
         await addDoc(collection(dbService, "nweets"), {
             text: nweet,
-            createdAt:serverTimestamp(),
-            createrId : userObj.uid
+            createdAt: serverTimestamp(),
+            createrId: userObj.uid
         });
         setNweet("");
     };
 
     const onChange = (event) => {
-        const {target : {value} } = event;
+        const {target: {value}} = event;
         setNweet(value);
     };
 
@@ -51,13 +53,11 @@ const Home = ({userObj}) => {
                        onChange={onChange}
                        placeholder="what's on you maid?"
                        maxLength={120}/>
-                <input type="submit" value="Nweet" />
+                <input type="submit" value="Nweet"/>
             </form>
             <div>
                 {nweets.map(nweet => (
-                    <div key={nweet.id}>
-                        <h2>{nweet.text}</h2>
-                    </div>
+                    <Nweet key={nweet.id} nweetObj={nweet} isOwner={nweet.createrId === userObj.uid}/>
                 ))}
             </div>
         </div>
