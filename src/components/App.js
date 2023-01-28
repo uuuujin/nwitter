@@ -4,16 +4,12 @@ import {authService} from "../fBase";
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
         if (user) {
-            setIsLoggedIn(true);
             setUserObj(user.multiFactor.user);
-        } else {
-            setIsLoggedIn(false);
         }
         setInit(true);
     });
@@ -24,7 +20,7 @@ function App() {
           {
               init ? (
                   <AppRouter
-                      isLoggedIn={isLoggedIn}
+                      isLoggedIn={Boolean(userObj)}
                       userObj={userObj}
                   />
                   ) : (
