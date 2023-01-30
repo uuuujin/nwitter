@@ -10,7 +10,7 @@ import {
     getFirestore
 }
     from "firebase/firestore";
-import {ref, uploadString} from "@firebase/storage";
+import {ref, uploadString, getDownloadURL} from "@firebase/storage";
 import {dbService, storageService} from "../fBase";
 import Nweet from "../components/Nweet";
 
@@ -35,22 +35,24 @@ const Home = ({userObj}) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        /*await addDoc(collection(dbService, "nweets"), {
+
+        let attachmentUrl = '';
+        if (attachment !== "") {
+            const attachmentRef =
+                ref(storageService, `${userObj.uid}/${uuidv4()}`);
+            const response = await uploadString(attachmentRef, attachment, "data_url");
+            attachmentUrl = await getDownloadURL(response.ref);
+        }
+
+        const nweetObj = {
             text: nweet,
             createdAt: serverTimestamp(),
-            createrId: userObj.uid
-        });
-        setNweet("");*/
-        const fileRef =
-            ref(storageService, `${userObj.uid}/${uuidv4()}`);
-        const response = await uploadString(fileRef, attachment, "data_url");
-        /*
-        const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-        const response = await fileRef.putString(attachment, "data_url");
-        */
-        console.log(response);
-
-
+            createrId: userObj.uid,
+            attachmentUrl
+        }
+        await addDoc(collection(dbService, "nweets"),nweetObj);
+        setNweet("");
+        setAttachment( "");
     };
 
     const onChange = (event) => {
@@ -73,7 +75,7 @@ const Home = ({userObj}) => {
         reader.readAsDataURL(theFile);
     };
 
-    const onClearAttachment = () => setAttachment(null)
+    const onClearAttachment = () => setAttachment("");
 
     return (
         <div>
