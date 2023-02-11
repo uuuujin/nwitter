@@ -47,7 +47,7 @@ const Home = ({userObj}) => {
         const nweetObj = {
             text: nweet,
             createdAt: serverTimestamp(),
-            createrId: userObj.uid,
+            creatorId: userObj.uid,
             attachmentUrl
         }
         await addDoc(collection(dbService, "nweets"),nweetObj);
@@ -96,7 +96,7 @@ const Home = ({userObj}) => {
             </form>
             <div>
                 {nweets.map(nweet => (
-                    <Nweet key={nweet.id} nweetObj={nweet} isOwner={nweet.createrId === userObj.uid}/>
+                    <Nweet key={nweet.id} nweetObj={nweet} isOwner={nweet.creatorId === userObj.uid}/>
                 ))}
             </div>
         </div>
