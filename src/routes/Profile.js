@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {collection, query, getDocs, where, orderBy} from "firebase/firestore";
 import {updateProfile} from 'firebase/auth';
 
-export default ({userObj}) => {
+export default ({userObj, refreshUser}) => {
     const history = useHistory();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogoutClick = () => {
@@ -48,6 +48,7 @@ export default ({userObj}) => {
             await updateProfile(userObj,
                 {displayName: newDisplayName}
             );
+            refreshUser();
         }
     };
     return (

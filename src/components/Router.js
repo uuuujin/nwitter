@@ -6,7 +6,7 @@ import Profile from "../routes/Profile";
 import Navigation from "./Navigation";
 
 /*인증 여부에 따라 달라질 부분 구현*/
-export default function AppRouter ({isLoggedIn, userObj})  {
+export default function AppRouter ({refreshUser, isLoggedIn, userObj})  {
     return (
         <Router>
             {isLoggedIn && <Navigation userObj={userObj}/>}
@@ -17,7 +17,7 @@ export default function AppRouter ({isLoggedIn, userObj})  {
                         <Home userObj={userObj}/>
                     </Route>
                     <Route exact path="/profile">
-                        <Profile userObj={userObj}/>
+                        <Profile userObj={userObj} refreshUser={refreshUser}/>
                     </Route>
                     <Redirect to="/" from="*"/>
                 </>
