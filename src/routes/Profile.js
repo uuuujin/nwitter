@@ -1,10 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {dbService, authService} from "../fBase";
 import {useHistory} from "react-router-dom";
 import {collection, query, getDocs, where, orderBy} from "firebase/firestore";
+import {updateProfile} from 'firebase/auth';
 
 export default ({userObj}) => {
     const history = useHistory();
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogoutClick = () => {
         authService.signOut();
         history.push("/");
@@ -31,8 +33,34 @@ export default ({userObj}) => {
     useEffect(() => {
         getMyNweets();
     },[]);
+
+    const onChange = (e) => {
+        const {
+            target : {value},
+        } = e;
+        setNewDisplayName(value);
+    };
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        /*아무것도 변경하지 않았을땐 submit 안되게*/
+        if (userObj.displayName !== newDisplayName) {
+            await updateProfile(userObj,
+                {displayName: newDisplayName}
+            );
+        }
+    };
     return (
         <>
+            <form onSubmit={onSubmit}>
+                <input
+                    onChange={onChange}
+                    type="text"
+                    placeholder="Display name"
+                    value={newDisplayName}
+                />
+                <input type="submit" value="Update Profile"/>
+            </form>
             <button onClick={onLogoutClick}>Log out</button>
         </>
     )
