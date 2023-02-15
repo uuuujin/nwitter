@@ -45,7 +45,7 @@ export default ({userObj, refreshUser}) => {
         e.preventDefault();
         /*아무것도 변경하지 않았을땐 submit 안되게*/
         if (userObj.displayName !== newDisplayName) {
-            await updateProfile(userObj,
+            await updateProfile(authService.currentUser,
                 {displayName: newDisplayName}
             );
             refreshUser();

@@ -28,8 +28,7 @@ function App() {
   * 우리의 header, 우리의 navigation은 firebase와 연결되어 있지 않음.
   * 그래서 firebase의 정보를 가지고 react.js를 업데이트 해야함.*/
   const refreshUser = () => {
-     const user = authService.currentUser;
-    console.log(authService.currentUser.displayName);
+    const user = authService.currentUser;
     setUserObj(
                 {
                     displayName : user.displayName,
