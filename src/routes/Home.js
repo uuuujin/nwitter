@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {v4 as uuidv4} from 'uuid';
 import {
     collection,
     onSnapshot,
-    addDoc,
     query,
     orderBy,
-    serverTimestamp,
     getFirestore
-}
-    from "firebase/firestore";
-
+} from "firebase/firestore";
 import Nweet from "../components/Nweet";
 import NweetFactory from "../components/NweetFactory";
 
