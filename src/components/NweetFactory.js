@@ -3,12 +3,19 @@ import {v4 as uuidv4} from 'uuid';
 import {getDownloadURL, ref, uploadString} from "@firebase/storage";
 import {dbService, storageService} from "../fBase";
 import {addDoc, collection, serverTimestamp} from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+
 
 const NweetFactory = ({userObj}) => {
     const [nweet, setNweet] = useState("");
     const [attachment, setAttachment] = useState("");
 
     const onSubmit = async (e) => {
+        if (nweet === "") {
+          return;
+        }
+
         e.preventDefault();
 
         let attachmentUrl = '';
@@ -53,18 +60,41 @@ const NweetFactory = ({userObj}) => {
     const onClearAttachment = () => setAttachment("");
 
     return (
-        <form onSubmit={onSubmit}>
-            <input type="text"
-                   value={nweet}
-                   onChange={onChange}
-                   placeholder="what's on you maid?"
-                   maxLength={120}/>
-            <input type="file" accept="image/*" onChange={onFileChange}/>
-            <input type="submit" value="Nweet"/>
+        <form onSubmit={onSubmit} className="factoryForm">
+            <div className="factoryInput__container">
+                <input type="text"
+                       value={nweet}
+                       onChange={onChange}
+                       placeholder="what's on you maid?"
+                       maxLength={120}
+                       className="factoryInput__container"
+                />
+                <input type="submit" value="&rarr;" className="factoryInput__arrow" />
+            </div>
+            <label htmlFor="attach-file" className="factoryInput__label">
+                <span>Add photos</span>
+                <FontAwesomeIcon icon={faPlus}/>
+            </label>
+            <input
+                id="attach-file"
+                type="file"
+                accept="image/*"
+                onChange={onFileChange}
+                style={{
+                  opacity: 0,
+                }}
+            />
             {attachment &&
-                <div>
-                    <img src={attachment} width="50px" height="50px"/>
-                    <button onClick={onClearAttachment }>Clear</button>
+                <div className="factoryForm__attachment">
+                    <img src={attachment}
+                         style={{
+                          backgroundImage: attachment,
+                        }}
+                    />
+                    <div className="factoryForm__clear" onClick={onClearAttachment}>
+                        <span>Remove</span>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div>
                 </div>
             }
         </form>
