@@ -11,31 +11,33 @@ export default function AppRouter ({refreshUser, isLoggedIn, userObj})  {
         <Router>
             {isLoggedIn && <Navigation userObj={userObj}/>}
             <Switch>
-                {isLoggedIn ? (
-                <div style={{
-                      maxWidth: 890,
-                      width: "100%",
-                      margin: "0 auto",
-                      marginTop: 80,
-                      display: "flex",
-                      justifyContent: "center",
-                }}>
-                    <Route exact path="/">
-                        <Home userObj={userObj}/>
-                    </Route>
-                    <Route exact path="/profile">
-                        <Profile userObj={userObj} refreshUser={refreshUser}/>
-                    </Route>
-                    <Redirect to="/" from="*"/>
-                </div>
-                )    :    (
-                    <>
-                        <Route exact path="/">
-                            <Auth/>
-                        </Route>
-                        <Redirect to="/" from="*"/>
-                    </>
-                )}
+                <>
+                    {isLoggedIn ? (
+                        <div style={{
+                              maxWidth: 890,
+                              width: "100%",
+                              margin: "0 auto",
+                              marginTop: 80,
+                              display: "flex",
+                              justifyContent: "center",
+                        }}>
+                            <Route exact path="/">
+                                <Home userObj={userObj}/>
+                            </Route>
+                            <Route exact path="/profile">
+                                <Profile userObj={userObj} refreshUser={refreshUser}/>
+                            </Route>
+                            <Redirect to="/" from="*"/>
+                        </div>
+                    )    :    (
+                        <>
+                            <Route exact path="/">
+                                <Auth/>
+                            </Route>
+                            <Redirect to="/" from="*"/>
+                        </>
+                    )}
+                </>
             </Switch>
         </Router>
     );
