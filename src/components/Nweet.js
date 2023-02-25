@@ -54,7 +54,9 @@ const Nweet = ({nweetObj, isOwner}) => {
                             />
                         </form>
                         <span onClick={toggleEditing}
-                              className="formBtn cancelBtn">Cancle</span>
+                              className="formBtn cancelBtn">
+                            Cancle
+                        </span>
                     </>
                 ) : (
                     <>
@@ -72,7 +74,6 @@ const Nweet = ({nweetObj, isOwner}) => {
                         )}
                     </>
                 )
-
             }
         </div>
     );
