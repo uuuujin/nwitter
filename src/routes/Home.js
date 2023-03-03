@@ -15,7 +15,7 @@ const Home = ({userObj}) => {
     useEffect(() => {
         const q = query(
             collection(getFirestore(), "nweets"),
-            orderBy("createdAt")
+            orderBy("createdAt", "desc")
         );
         onSnapshot(q, snapshot => {
             const arr = snapshot.docs.map((doc) => ({
