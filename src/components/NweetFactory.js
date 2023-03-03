@@ -67,7 +67,7 @@ const NweetFactory = ({userObj}) => {
                        onChange={onChange}
                        placeholder="what's on you maid?"
                        maxLength={120}
-                       className="factoryInput__container"
+                       className="factoryInput__input"
                 />
                 <input type="submit" value="&rarr;" className="factoryInput__arrow" />
             </div>
@@ -90,6 +90,7 @@ const NweetFactory = ({userObj}) => {
                          style={{
                           backgroundImage: attachment,
                         }}
+                         alt="img"
                     />
                     <div className="factoryForm__clear" onClick={onClearAttachment}>
                         <span>Remove</span>

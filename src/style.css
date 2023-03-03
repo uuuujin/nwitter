@@ -1,5 +1,13 @@
 @import "https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css";
 
+/*pc 통신 글씨체*/
+@font-face {
+     font-family: 'DungGeunMo';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -178,6 +186,7 @@ form {
   display: flex;
   flex-direction: column;
   color: rgba(0, 0, 0, 0.8);
+  font-family: 'DungGeunMo';
 }
 
 .nweet h4 {
